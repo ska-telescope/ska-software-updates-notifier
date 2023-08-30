@@ -1,0 +1,5 @@
+metrics:
+    port: 9099
+
+packages:
+    apt: []

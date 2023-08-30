@@ -1,0 +1,11 @@
+[Unit]
+Description=Software Updates Notifier
+
+[Service]
+User=root
+WorkingDirectory=/root/.local/share/sun
+ExecStart=python3 sun.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
