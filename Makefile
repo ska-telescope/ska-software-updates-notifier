@@ -20,7 +20,7 @@ reconfigure:
 	sudo systemctl restart sun.service
 
 install: install-dependencies
-	sudo mkdir -p $(INSTALL_DIR)
+	sudo mkdir -p $(CONFIG_DIR)
 	sudo mkdir -p $(INSTALL_DIR)
 	sudo cp src/*.py $(INSTALL_DIR)
 	sudo cp files/sun.service $(SYSTEMD_DIR)
