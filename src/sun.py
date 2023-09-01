@@ -1,4 +1,3 @@
-#!/bin/python3
 from config import config
 from updates import get_apt_updates
 from prometheus import generate_metrics
