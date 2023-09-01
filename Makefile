@@ -34,3 +34,8 @@ uninstall:
 	sudo rm -rf $(SYSTEMD_DIR)/sun.service
 	sudo rm -rf $(INSTALL_DIR)
 	sudo rm -rf $(CONFIG_DIR)
+
+update:
+	git pull
+	sudo cp src/*.py $(INSTALL_DIR)
+	sudo systemctl restart sun.service
