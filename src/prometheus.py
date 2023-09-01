@@ -16,4 +16,4 @@ def generate_metrics(config: dict, updates: dict) -> str:
                 f'sun_package_version_info{{package="{package}", installed="", latest=""}} -1'
             )
 
-    return '\n'.join(strings)
+    return '\n'.join(strings) + '\n'
