@@ -4,7 +4,7 @@ CACHE = apt.Cache()
 
 def get_apt_updates(config: dict) -> dict:
     # Update APT cache
-    print('Updating APT cache...') 
+    print('Updating APT cache...')
     CACHE.update()
     CACHE.open(None)
 
