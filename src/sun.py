@@ -10,8 +10,13 @@ updates = {}
 # Periodically update the cache
 def update_cache():
     global updates
-    updates = get_apt_updates(config)
-    t = threading.Timer(3600, update_cache)
+    try:
+        updates = get_apt_updates(config)
+        # On success, schedule the update in 1 hour
+        t = threading.Timer(3600, update_cache)
+    except:
+        # On failure, schedule the update in 1 minute
+        t = threading.Timer(60, update_cache)
     t.daemon = True
     t.start()
 
