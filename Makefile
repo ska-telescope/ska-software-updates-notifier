@@ -1,10 +1,11 @@
-INSTALL_DIR=/root/.local/share/sun
-CONFIG_DIR=/root/.config/sun
+INSTALL_DIR=$(HOME)/.local/share/sun
+CONFIG_DIR=$(HOME)/.config/sun
 SYSTEMD_DIR=/etc/systemd/system
 
 install-dependencies:
-	@sudo apt-get install python3-apt -y
-	@sudo pip3 install -r requirements.txt
+	sudo apt-get install python3-apt python3-venv python3-pip -y
+	python3 -m venv $(INSTALL_DIR)/venv --system-site-packages
+	. $(INSTALL_DIR)/venv/bin/activate ; pip3 install -r requirements.txt
 
 start:
 	sudo systemctl start sun.service
@@ -23,7 +24,7 @@ install: install-dependencies
 	sudo mkdir -p $(CONFIG_DIR)
 	sudo mkdir -p $(INSTALL_DIR)
 	sudo cp src/*.py $(INSTALL_DIR)
-	sudo cp files/sun.service $(SYSTEMD_DIR)
+	sed 's|USERHOME|$(HOME)|g' files/sun.service | sudo tee $(SYSTEMD_DIR)/sun.service >/dev/null
 	sudo cp files/config.yaml $(CONFIG_DIR) | true
 	sudo systemctl start sun.service
 	sudo systemctl enable sun.service
