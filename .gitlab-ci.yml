@@ -1,0 +1,20 @@
+---
+# See: https://docs.gitlab.com/ee/ci/yaml/includes.html
+image: $SKA_K8S_TOOLS_DOCKER_BUILDER_IMAGE
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+  - lint
+  - pages
+
+# Include CI templates 
+include:
+  # Helm Charts
+  - project: "ska-telescope/templates-repository"
+    file: "gitlab-ci/includes/python.gitlab-ci.yml"
+
+  # .post step finalisers eg: badges
+  - project: "ska-telescope/templates-repository"
+    file: "gitlab-ci/includes/finaliser.gitlab-ci.yml"
