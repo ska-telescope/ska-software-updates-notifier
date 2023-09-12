@@ -3,8 +3,8 @@ Description=Software Updates Notifier
 
 [Service]
 User=root
-WorkingDirectory=USERHOME/.local/share/sun
-ExecStart=USERHOME/.local/share/sun/venv/bin/python3 sun.py
+WorkingDirectory=/root/.local/share/sun
+ExecStart=/root/.local/share/sun/venv/bin/python3 sun.py
 Restart=always
 
 [Install]

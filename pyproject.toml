@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ska-software-updates-notifier"
+version = "1.0.2"
+description = "Software Updates Notifier"
+authors = ["Diogo Regateiro <diogo.regateiro@atlar.pt>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyyaml = "^6.0.1"
+flask = "^2.3.3"
+waitress = "^2.1.2"
+black = "^23.9.1"
+flake8 = "^6.1.0"
+pylint-junit = "^0.3.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

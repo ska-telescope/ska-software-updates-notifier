@@ -1,11 +1,18 @@
-INSTALL_DIR=$(HOME)/.local/share/sun
-CONFIG_DIR=$(HOME)/.config/sun
+INSTALL_DIR=/root/.local/share/sun
+CONFIG_DIR=/root/.config/sun
 SYSTEMD_DIR=/etc/systemd/system
 
+include .make/base.mk
+include .make/python.mk
+
 install-dependencies:
+	sudo mkdir -p $(CONFIG_DIR)
+	sudo mkdir -p $(INSTALL_DIR)
 	sudo apt-get install python3-apt python3-venv python3-pip -y
-	python3 -m venv $(INSTALL_DIR)/venv --system-site-packages
-	. $(INSTALL_DIR)/venv/bin/activate ; pip3 install -r requirements.txt
+	poetry config --local virtualenvs.options.system-site-packages true
+	poetry config --local virtualenvs.in-project true
+	poetry install
+	sudo cp -r .venv $(INSTALL_DIR)/venv
 
 start:
 	sudo systemctl start sun.service
@@ -21,10 +28,8 @@ reconfigure:
 	sudo systemctl restart sun.service
 
 install: install-dependencies
-	sudo mkdir -p $(CONFIG_DIR)
-	sudo mkdir -p $(INSTALL_DIR)
 	sudo cp src/*.py $(INSTALL_DIR)
-	sed 's|USERHOME|$(HOME)|g' files/sun.service | sudo tee $(SYSTEMD_DIR)/sun.service >/dev/null
+	sudo cp files/sun.service $(SYSTEMD_DIR)/sun.service
 	sudo cp files/config.yaml $(CONFIG_DIR) | true
 	sudo systemctl start sun.service
 	sudo systemctl enable sun.service
