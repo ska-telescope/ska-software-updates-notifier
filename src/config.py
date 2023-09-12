@@ -22,10 +22,10 @@ with open(config_file, "r") as yamlfile:
 
 # Validate Config File
 if not config.get('metrics'):
-    config['packages'] = {}
+    config['metrics'] = {}
 
 if not config['metrics'].get('port'):
-    config['packages']['port'] = 9099
+    config['metrics']['port'] = 9099
 
 if not config.get('packages'):
     config['packages'] = {}
