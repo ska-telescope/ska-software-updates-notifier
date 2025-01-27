@@ -3,7 +3,7 @@
 import threading
 
 from apt_pkg import Error  # pylint: disable=no-name-in-module
-from flask import Flask
+from flask import Flask, Response
 
 from config import config
 from prometheus import generate_metrics
@@ -20,11 +20,10 @@ def update_cache():
     global updates
     try:
         updates = get_apt_updates(config)
-        # On success, schedule the update in 1 hour
-        timer = threading.Timer(3600, update_cache)
     except Error:
-        # On failure, schedule the update in 1 minute
-        timer = threading.Timer(60, update_cache)
+        pass
+    # Schedule the update in 1 hour
+    timer = threading.Timer(int(config["packages"]["delay"]), update_cache)
     timer.daemon = True
     timer.start()
 
@@ -37,7 +36,7 @@ update_cache()
 @app.route("/metrics")
 def metrics():
     """Generates the Prometheus metrics"""
-    return generate_metrics(config, updates)
+    return Response(generate_metrics(config, updates), mimetype="text/plain")
 
 
 # Start the HTTP server
@@ -45,4 +44,4 @@ if __name__ == "__main__":
     from waitress import serve
 
     print(f"Listening on port {config['metrics']['port']}...")
-    serve(app, host="0.0.0.0", port=config["metrics"]["port"])
+    serve(app, host="0.0.0.0", port=int(config["metrics"]["port"]))
