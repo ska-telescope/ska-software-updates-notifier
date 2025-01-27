@@ -6,8 +6,8 @@ include .make/base.mk
 include .make/python.mk
 
 python-pre-lint:
-	sudo apt-get update -y
-	sudo apt-get install python3-apt python3-venv python3-pip -y
+	apt-get update -y
+	apt-get install python3-apt python3-venv python3-pip -y
 
 install-dependencies:
 	sudo mkdir -p $(CONFIG_DIR)
