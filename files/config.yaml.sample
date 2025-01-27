@@ -2,4 +2,5 @@ metrics:
     port: 9099
 
 packages:
+    delay: 3600
     apt: []

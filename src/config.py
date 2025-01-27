@@ -34,3 +34,6 @@ if not config.get("packages"):
 
 if not config["packages"].get("apt"):
     config["packages"]["apt"] = []
+
+if not config["packages"].get("delay"):
+    config["packages"]["delay"] = 3600

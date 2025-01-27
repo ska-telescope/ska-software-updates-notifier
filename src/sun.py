@@ -23,7 +23,7 @@ def update_cache():
     except Error:
         pass
     # Schedule the update in 1 hour
-    timer = threading.Timer(3600, update_cache)
+    timer = threading.Timer(int(config["packages"]["delay"]), update_cache)
     timer.daemon = True
     timer.start()
 
@@ -44,4 +44,4 @@ if __name__ == "__main__":
     from waitress import serve
 
     print(f"Listening on port {config['metrics']['port']}...")
-    serve(app, host="0.0.0.0", port=config["metrics"]["port"])
+    serve(app, host="0.0.0.0", port=int(config["metrics"]["port"]))
