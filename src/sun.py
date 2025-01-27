@@ -37,7 +37,7 @@ update_cache()
 @app.route("/metrics")
 def metrics():
     """Generates the Prometheus metrics"""
-    return Response(generate_metrics(config, updates), mimetype = "text/plain")
+    return Response(generate_metrics(config, updates), mimetype="text/plain")
 
 
 # Start the HTTP server
