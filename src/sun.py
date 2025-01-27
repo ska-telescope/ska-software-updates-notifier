@@ -3,7 +3,7 @@
 import threading
 
 from apt_pkg import Error  # pylint: disable=no-name-in-module
-from flask import Flask
+from flask import Flask, Response
 
 from config import config
 from prometheus import generate_metrics
@@ -37,7 +37,7 @@ update_cache()
 @app.route("/metrics")
 def metrics():
     """Generates the Prometheus metrics"""
-    return generate_metrics(config, updates)
+    return Response(generate_metrics(config, updates), mimetype = "text/plain")
 
 
 # Start the HTTP server
