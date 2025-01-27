@@ -20,11 +20,10 @@ def update_cache():
     global updates
     try:
         updates = get_apt_updates(config)
-        # On success, schedule the update in 1 hour
-        timer = threading.Timer(3600, update_cache)
     except Error:
-        # On failure, schedule the update in 1 minute
-        timer = threading.Timer(60, update_cache)
+        pass
+    # Schedule the update in 1 hour
+    timer = threading.Timer(3600, update_cache)
     timer.daemon = True
     timer.start()
 
